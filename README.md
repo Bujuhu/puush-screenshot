@@ -1,7 +1,7 @@
 puush-screenshot
 ====================
 
-A basic bash script to autoupload screenshots on Linux.
+A basic bash script to autoupload screenshots to Puush on Linux.
 
 Requirements
 ------------
@@ -19,6 +19,8 @@ sudo apt-get update
 sudo apt-get install xclip
 ```
 Depending on your installation you might have to edit the script and change gnome-screenshot and/or notify-send to something else.
+
+You'll also need a Puush Account.
 
 Installation
 ------------
@@ -44,7 +46,7 @@ You can use all Arguments that gnome-screenshot uses, except '-f'.
 
 To get an explanation of usable arguments type
 ```bash
-man gnome-scenshot
+man gnome-screenshot
 ```
 Idealy, you would want to setup an Keyboard Shortcut.
 If the Script executes sucessfully, a notification will pop up.
