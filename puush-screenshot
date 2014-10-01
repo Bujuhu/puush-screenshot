@@ -1,0 +1,25 @@
+#bin/bash
+
+#Uncomment the next Line to add your Puush Api Key
+#PUUSH_API_KEY="YOUR-KEY-HERE"
+DIR="$HOME/Pictures/"
+IMG="Screenshot from $(date "+%F %T")"
+
+echo $SCREENSHOT_CMD
+if [ -z "$PUUSH_API_KEY" ] ; then
+	echo "Puush Api Key not defined!"
+	exit 2
+elif gnome-screenshot $@ -f "$DIR$IMG" && [ -f "$DIR$IMG" ] ; then
+	 OUT=$(curl "https://puush.me/api/up" -# -F "k=$PUUSH_API_KEY" -F "z=poop" -F "f=@$DIR$IMG" | sed -E 's/^.+,(.+),.+,.+$/\1\n/')
+	if [ "$OUT" != "-1," ]; then
+		echo $OUT | xclip -sel clip
+		notify-send "Link was copied to your Clipboard"
+		exit 0
+	else
+		echo "Couldn't upload screenshot! Is your API Key valid?"
+		exit 2
+	fi
+else
+	echo "Can't save Screenshot to '$DIR$IMG'"
+	exit 2
+fi
