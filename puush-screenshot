@@ -1,9 +1,9 @@
-#bin/bash
+#!/bin/bash
 
 #Uncomment the next Line to add your Puush Api Key
 #PUUSH_API_KEY="YOUR-KEY-HERE"
 DIR="$HOME/Pictures/"
-IMG="Screenshot from $(date "+%F %T")"
+IMG="Screenshot from $(date "+%F %T").png"
 
 echo $SCREENSHOT_CMD
 if [ -z "$PUUSH_API_KEY" ] ; then
