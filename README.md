@@ -26,7 +26,7 @@ Installation
 ------------
 
 ```bash
-sudo curl -O https://github.com/Bujuhu/puush-autoscreenshot/puush-screenshot
+sudo curl -O https://raw.githubusercontent.com/Bujuhu/puush-screenshot/master/puush-screenshot
 sudo mv puush-screenshot /usr/local/bin/
 sudo chmod +x /usr/local/bin/puush-screenshot
 ```
