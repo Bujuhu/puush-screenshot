@@ -26,9 +26,9 @@ Installation
 ------------
 
 ```bash
-curl -O https://github.com/Bujuhu/puush-autoscreenshot/puush-screenshot
+sudo curl -O https://github.com/Bujuhu/puush-autoscreenshot/puush-screenshot
 sudo mv puush-screenshot /usr/local/bin/
-sudo cmod +x /usr/local/puush-screenshot
+sudo chmod +x /usr/local/puush-screenshot
 ```
 Now you'll need your Puush API Key. You can find it on your [Puush Account Setting](http://puush.me/account/settings)
 
