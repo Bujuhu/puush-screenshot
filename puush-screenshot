@@ -1,24 +1,29 @@
 #!/bin/bash
 
-#Uncomment the next Line to add your Puush Api Key
+#You can either add your puush-api-key as an enviroment Variable (look at readme) or add it directly to the script, by uncommenting the next Line
 #PUUSH_API_KEY="YOUR-KEY-HERE"
-DIR="$HOME/Pictures/"
-IMG="Screenshot from $(date "+%F %T").png"
+
+#Exit on error
+set -e
+
+# Set sensible defaults for Variables
+[ -z "$SCREENSHOT_DIR" ] &&	SCREENSHOT_DIR="$HOME/Pictures/"
+[ -z "$DIR" ] && SCREENSHOT_FILE="ss_$(date "+%s").png"
+SCREENSHOT_PATH="$SCREENSHOT_DIR$SCREENSHOT_FILE"
+[ -z "$SCREENSHOT_COMMAND" ] &&	SCREENSHOT_COMMAND="scrot $* $SCREENSHOT_PATH"
 
 if [ -z "$PUUSH_API_KEY" ] ; then
-	notify-send "Puush Api Key not defined!"
+	echo "puush-screenshot error: Variable PUUSH_API_KEY is not defined. Please add it as an enviroment variable or to the script" 1>&2
 	exit 2
-elif gnome-screenshot $@ -f "$DIR$IMG" && [ -f "$DIR$IMG" ] ; then
-	 OUT=$(curl "https://puush.me/api/up" -# -F "k=$PUUSH_API_KEY" -F "z=poop" -F "f=@$DIR$IMG" | sed -E 's/^.+,(.+),.+,.+$/\1\n/')
-	if [ "$OUT" != "-1," ]; then
-		echo $OUT | xclip -sel clip
-		notify-send "Link was copied to your Clipboard" "$OUT"
-		exit 0
-	else
-		notify-send "Couldn't upload screenshot! Is your API Key valid?"
-		exit 2
-	fi
+fi
+
+$SCREENSHOT_COMMAND
+OUT=$(curl "https://puush.me/api/up" -# -F "k=$PUUSH_API_KEY" -F "z=poop" -F "f=@$SCREENSHOT_PATH" | sed -E 's/^.+,(.+),.+,.+$/\1\n/')
+if [ "$OUT" == "-1," ]; then
+	echo "puush-screenshot error: Couldn't upload screenshot, Invalid API Key" 1>&2
+	exit 2
 else
-	notify-send "Can't save Screenshot to '$DIR$IMG'"
-	exit 2
+	echo $OUT | xclip -sel clip
+	notify-send "Link was copied to your Clipboard"
+	exit 0
 fi
