@@ -1,15 +1,15 @@
 puush-screenshot
 ====================
 
-A basic bash script to autoupload screenshots to Puush on Linux.
+A basic bash script to auto-upload screenshots to Puush on Linux.
 
 Requirements
 ------------
 
-This script utillizes the following Packages:
+This script utilizes the following Packages:
 * curl
 * xclip
-* gnome-screenshot
+* scrot
 * notify-send
 
 Make sure that all of those are installed, if you want to use the script out of the box. On most Ubuntu based distros, you only need to install xclip.
@@ -18,7 +18,7 @@ Make sure that all of those are installed, if you want to use the script out of 
 sudo apt-get update
 sudo apt-get install xclip
 ```
-Depending on your installation you might have to edit the script and change gnome-screenshot and/or notify-send to something else.
+Depending on your installation you might have to edit the script and change scrot to something else.
 
 You'll also need a Puush Account.
 
@@ -30,26 +30,24 @@ sudo curl -O https://raw.githubusercontent.com/Bujuhu/puush-screenshot/master/pu
 sudo mv puush-screenshot /usr/local/bin/
 sudo chmod +x /usr/local/bin/puush-screenshot
 ```
-Now you'll need your Puush API Key. You can find it on your [Puush Account Setting](http://puush.me/account/settings)
 
-Put it directly into the Script or set up an environment variable with 
+To use this Script you need your Puush API Key, which can be found in the [Puush Account Settings Page](http://puush.me/account/settings)
+
+Put it directly into the Script or set an environment variable by putting this is in your `~/.bash_profile` or equivalent
 ```bash
 export PUUSH_API_KEY="YOUR-KEY-HERE"
 ```
 
 Usage
 -----
-After installation you can run the script by typing 'puush-screenshot'
+After installation you can run the script using the 'puush-screenshot' keyword
 
-All Arguments parsed to the script will be forwoarded to gnome-screenshot. 
-You can use all Arguments that gnome-screenshot uses, except '-f'.
+All Arguments parsed to the script will be forwarded to gnome-screenshot.
+You can use all Arguments that scrot uses.
 
 To get an explanation of usable arguments type
 ```bash
-man gnome-screenshot
+man scrot
 ```
-Idealy, you would want to setup an Keyboard Shortcut.
-If the Script executes sucessfully, a notification will pop up.
 
-To change the screenshot directory and filename, change the 'DIR' and 'IMG' Variables to something else.
-
+To change the screenshot directory and filename, change the 'SCREENSHOT_DIR' and 'SCREENSHOT_FILE' Variables to something else, either also als enviroment Variable or inside Script
